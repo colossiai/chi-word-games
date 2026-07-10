@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  @apply font-hei text-slate-800 antialiased;
+  background: linear-gradient(160deg, #fff7ed 0%, #fef3c7 45%, #fee2e2 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* 避免點擊選項時出現藍色反白，讓遊戲更像 app */
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
