@@ -7,6 +7,7 @@ import charsData from '@/data/generated/chars.json';
 import type { QuizQuestion, Stage } from './types';
 import { shuffle, sample } from './shuffle';
 import { idiomsByStage } from '@/data/idiom-meanings';
+import { similarGroups } from '@/data/similar-chars';
 
 interface WordRow {
   w: string;
@@ -189,6 +190,31 @@ export function buildRadical(stage: Stage): QuizQuestion[] {
       options: [t.r, ...distractors],
       answerIndex: 0,
       explanation: `「${t.c}」的部首是「${t.r}」，共 ${t.k} 畫。`,
+    };
+  });
+}
+
+// ── 相似字比較：分辨長得很像的形近字（同組互為選項） ──
+// 拼音取自官方 chars.json;個別不在字表的字（如「巳」）以下方 fallback 補上。
+const PY_FALLBACK: Record<string, string> = { 巳: 'sì' };
+const pyOf = (c: string): string => CHAR_BY.get(c)?.py ?? PY_FALLBACK[c] ?? '';
+
+export function buildSimilar(): QuizQuestion[] {
+  const groups = sample(similarGroups, Math.min(PER_GAME, similarGroups.length));
+  return groups.map((g, i) => {
+    const it = sample(g.items, 1)[0];
+    const blanked = it.word.replace(it.char, '（　）');
+    const options = [...g.chars];
+    return {
+      id: `sim-${i}-${it.char}`,
+      prompt: `選出正確的字填入括號：\n「${blanked}」\n（讀音 ${pyOf(it.char)}；${it.hint}）`,
+      options,
+      answerIndex: options.indexOf(it.char),
+      explanation:
+        '形近字比較 —— ' +
+        g.items
+          .map((x) => `「${x.char}」${pyOf(x.char)}，${x.word}（${x.hint}）`)
+          .join('；'),
     };
   });
 }

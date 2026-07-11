@@ -50,6 +50,13 @@ const READING_MODES = [
     gradient: 'from-fuchsia-300 to-pink-400',
   },
   {
+    href: '/similar',
+    emoji: '🔍',
+    title: '相似字比較',
+    description: '分辨長得很像的繁體字，例如「己已巳」「辨辯辮瓣」「晴睛清情」。',
+    gradient: 'from-orange-300 to-amber-400',
+  },
+  {
     href: '/fill-blank',
     emoji: '✏️',
     title: '句子填空',
