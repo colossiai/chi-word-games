@@ -1,5 +1,8 @@
 import charsData from './generated/chars.json';
 import type { Character, Stage } from '@/lib/types';
+import { entries as extra1 } from './meanings-extra-1';
+import { entries as extra2 } from './meanings-extra-2';
+import { entries as extra3 } from './meanings-extra-3';
 
 // 「漢字精讀」題庫：由小學教育專家精選的高頻常用字，手寫簡明字義與例詞。
 // 拼音、部首、筆畫、學習階段一律取自官方《香港小學學習字詞表》（generated/chars.json），
@@ -14,7 +17,7 @@ interface MeaningEntry {
   ex: string[];
 }
 
-const ENTRIES: MeaningEntry[] = [
+const CORE_ENTRIES: MeaningEntry[] = [
   // ── 自然．天氣．地貌 ──
   { c: '陽', m: '太陽；光亮而溫暖。', ex: ['太陽', '陽光', '夕陽'] },
   { c: '雲', m: '飄浮在天空的水氣。', ex: ['白雲', '雲層', '烏雲'] },
@@ -125,6 +128,9 @@ const ENTRIES: MeaningEntry[] = [
   { c: '清', m: '純淨；明白。', ex: ['清水', '清楚', '清潔'] },
   { c: '澈', m: '水清得見底。', ex: ['清澈', '澄澈', '明澈'] },
 ];
+
+// 核心手寫 + 各補充批次。
+const ENTRIES: MeaningEntry[] = [...CORE_ENTRIES, ...extra1, ...extra2, ...extra3];
 
 interface CharRow {
   c: string;

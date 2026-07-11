@@ -1,7 +1,9 @@
 import type { FillBlankQuestion } from '@/lib/types';
+import { questions as fbExtra1 } from './fill-blank-extra-1';
+import { questions as fbExtra2 } from './fill-blank-extra-2';
 
 // 帶上下文的填空題：從句子語境選出正確的字／詞。
-export const fillBlankQuestions: FillBlankQuestion[] = [
+const coreQuestions: FillBlankQuestion[] = [
   {
     id: 'fb-1',
     sentence: '太陽從東方緩緩____起，照亮了整個大地。',
@@ -128,4 +130,10 @@ export const fillBlankQuestions: FillBlankQuestion[] = [
     answerIndex: 1,
     explanation: '過年貼在門兩旁的是「對聯」，用「聯」。「連」是連接，「蓮」是蓮花，「漣」是水波，都不是我們過年貼的東西喔。',
   },
+];
+
+export const fillBlankQuestions: FillBlankQuestion[] = [
+  ...coreQuestions,
+  ...fbExtra1,
+  ...fbExtra2,
 ];

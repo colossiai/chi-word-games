@@ -31,7 +31,7 @@ const CHAR_BY = new Map(CHARS.map((c) => [c.c, c]));
 const ALL_RADICALS = [...new Set(CHARS.map((c) => c.r))];
 
 /** 每局題數 */
-const PER_GAME = 15;
+const PER_GAME = 20;
 
 /** 「高頻常用字」門檻：能組成 5 個或以上詞語的字。 */
 const COMMON_N = 5;

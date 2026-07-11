@@ -1,7 +1,9 @@
 import type { RhetoricQuestion } from '@/lib/types';
+import { questions as rhExtra1 } from './rhetoric-extra-1';
+import { questions as rhExtra2 } from './rhetoric-extra-2';
 
 // 修辭手法辨識：判斷句子使用了哪一種修辭手法。
-export const rhetoricQuestions: RhetoricQuestion[] = [
+const coreQuestions: RhetoricQuestion[] = [
   {
     id: 'rh-1',
     sentence: '春風輕輕地撫摸著我的臉。',
@@ -233,4 +235,10 @@ export const rhetoricQuestions: RhetoricQuestion[] = [
     answerIndex: 1,
     explanation: '「淅淅瀝瀝」「濕漉漉」都把字詞重疊使用，令描寫更生動、更有聲音感。把字詞重疊使用來加強效果，就是「疊詞」。',
   },
+];
+
+export const rhetoricQuestions: RhetoricQuestion[] = [
+  ...coreQuestions,
+  ...rhExtra1,
+  ...rhExtra2,
 ];

@@ -7,7 +7,7 @@ import { fillBlankToQuiz } from '@/lib/adapters';
 import { sample } from '@/lib/shuffle';
 import { useQuiz } from '@/lib/useQuiz';
 
-const PER_GAME = 15;
+const PER_GAME = 20;
 
 export default function FillBlankPage() {
   const builder = useCallback(

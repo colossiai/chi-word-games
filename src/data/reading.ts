@@ -1,7 +1,13 @@
 import type { ReadingPassage } from '@/lib/types';
+import { passages as rdExtra1 } from './reading-extra-1';
+import { passages as rdExtra2 } from './reading-extra-2';
+import { passages as rdExtra3 } from './reading-extra-3';
+import { passages as rdExtra4 } from './reading-extra-4';
+import { passages as rdExtra5 } from './reading-extra-5';
+import { passages as rdExtra6 } from './reading-extra-6';
 
 // 閱讀理解：短文 + 多條選擇題（含字面理解與推論）。
-export const readingPassages: ReadingPassage[] = [
+const corePassages: ReadingPassage[] = [
   {
     id: 'rd-1',
     title: '小蝸牛的旅行',
@@ -459,4 +465,14 @@ export const readingPassages: ReadingPassage[] = [
       },
     ],
   },
+];
+
+export const readingPassages: ReadingPassage[] = [
+  ...corePassages,
+  ...rdExtra1,
+  ...rdExtra2,
+  ...rdExtra3,
+  ...rdExtra4,
+  ...rdExtra5,
+  ...rdExtra6,
 ];
