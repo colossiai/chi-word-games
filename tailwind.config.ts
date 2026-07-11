@@ -4,6 +4,8 @@ const config: Config = {
   content: [
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    // lib 內含鍵盤指法的顏色 class（bg-*/ring-*），必須掃描,否則會被清除。
+    './src/lib/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {

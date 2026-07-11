@@ -87,6 +87,23 @@ const WRITING_MODE = {
   gradient: 'from-rose-300 to-red-400',
 };
 
+const TYPING_MODES = [
+  {
+    href: '/typing-english',
+    emoji: '⌨️',
+    title: '英文打字練習',
+    description: '學正確指法、練盲打：虛擬鍵盤標示手指，循序漸進的課程，即時顯示正確率與速度。',
+    gradient: 'from-slate-300 to-gray-500',
+  },
+  {
+    href: '/typing-pinyin',
+    emoji: '🅿️',
+    title: '拼音打字練習',
+    description: '看中文常用字詞與句子，打出普通話拼音，熟悉拼音、練速度，完成後即時評分。',
+    gradient: 'from-cyan-300 to-teal-500',
+  },
+];
+
 function SectionTitle({ children, hint }: { children: React.ReactNode; hint?: string }) {
   return (
     <div className="mb-4 mt-8 flex items-baseline gap-2">
@@ -134,6 +151,13 @@ export default function Home() {
       <SectionTitle hint="分階段題目">🖋️ 寫作</SectionTitle>
       <div className="grid grid-cols-1 gap-5">
         <ModeCard {...WRITING_MODE} />
+      </div>
+
+      <SectionTitle hint="電腦技能">⌨️ 打字</SectionTitle>
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        {TYPING_MODES.map((m) => (
+          <ModeCard key={m.href} {...m} />
+        ))}
       </div>
 
       <footer className="mt-12 text-center text-sm text-slate-400">
