@@ -11,7 +11,7 @@ import { sample } from '@/lib/shuffle';
 import { useStage } from '@/lib/stage';
 import type { Character, Stage } from '@/lib/types';
 
-const PER_GAME = 10;
+const PER_GAME = 12;
 
 /** 依 stage 抽卡的內層；由外層以 key={stage} 重新掛載即可換階段重抽。 */
 function Deck({ stage }: { stage: Stage }) {

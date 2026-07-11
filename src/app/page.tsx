@@ -40,8 +40,15 @@ const STAGED_MODES = [
   },
 ];
 
-// 閱讀與語文能力（通用題庫，不分階段）。
+// 詞語運用與閱讀。組詞為分階段自動生成（高頻常用字），其餘為通用題庫。
 const READING_MODES = [
+  {
+    href: '/compose',
+    emoji: '🔗',
+    title: '組詞遊戲',
+    description: '常用字可以和哪個字組成詞語？高頻常用字自動出題，例子近乎無限。',
+    gradient: 'from-fuchsia-300 to-pink-400',
+  },
   {
     href: '/fill-blank',
     emoji: '✏️',
@@ -103,14 +110,14 @@ export default function Home() {
         </p>
       </div>
 
-      <SectionTitle hint="跟隨上方階段">📚 字詞學習</SectionTitle>
+      <SectionTitle hint="高頻常用字 · 跟隨上方階段">📚 字詞學習</SectionTitle>
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         {STAGED_MODES.map((m) => (
           <ModeCard key={m.href} {...m} />
         ))}
       </div>
 
-      <SectionTitle hint="通用題庫">🧠 閱讀與語文</SectionTitle>
+      <SectionTitle hint="詞語運用與閱讀">🧠 閱讀與語文</SectionTitle>
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         {READING_MODES.map((m) => (
           <ModeCard key={m.href} {...m} />

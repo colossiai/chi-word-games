@@ -87,11 +87,13 @@ const charList = [];
     if (!line.startsWith('| ')) continue;
     const c = cells(line);
     if (c.length < 6) continue;
-    const [char, , radical, py, , stageRaw] = c;
+    const [char, , radical, py, , stageRaw, countRaw] = c;
     // 表頭「學習階段」與分隔列的階段欄不是第一/第二，由 stageNum 過濾。
     const s = stageNum(stageRaw);
     if (!s || !char) continue;
-    charList.push({ c: char, py: firstPinyin(py), r: radical, k: strokes, s });
+    // 詞數（該字的相關詞語數）作為「常用／能產」程度的代理，越大越常用。
+    const n = Number.parseInt(countRaw, 10) || 0;
+    charList.push({ c: char, py: firstPinyin(py), r: radical, k: strokes, s, n });
   }
 }
 

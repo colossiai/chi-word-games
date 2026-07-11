@@ -8,7 +8,7 @@ import { sample } from '@/lib/shuffle';
 import { useQuiz } from '@/lib/useQuiz';
 
 // 每局隨機抽 3 篇短文；同一篇的題目會排在一起（見 readingToQuiz）。
-const PASSAGES_PER_GAME = 3;
+const PASSAGES_PER_GAME = 4;
 
 export default function ReadingPage() {
   const builder = useCallback(

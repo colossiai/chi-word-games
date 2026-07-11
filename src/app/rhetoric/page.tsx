@@ -7,7 +7,7 @@ import { rhetoricToQuiz } from '@/lib/adapters';
 import { sample } from '@/lib/shuffle';
 import { useQuiz } from '@/lib/useQuiz';
 
-const PER_GAME = 12;
+const PER_GAME = 15;
 
 export default function RhetoricPage() {
   const builder = useCallback(
