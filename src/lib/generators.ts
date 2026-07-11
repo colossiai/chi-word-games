@@ -194,27 +194,51 @@ export function buildRadical(stage: Stage): QuizQuestion[] {
   });
 }
 
-// ── 相似字比較：分辨長得很像的形近字（同組互為選項） ──
+// ── 相似字比較：分辨長得很像的形近字 ───────────────────
+// 專屬版面用:回傳「整組形近字（連拼音）＋一條填空題」,讓比較卡常駐顯示。
 // 拼音取自官方 chars.json;個別不在字表的字（如「巳」）以下方 fallback 補上。
 const PY_FALLBACK: Record<string, string> = { 巳: 'sì' };
 const pyOf = (c: string): string => CHAR_BY.get(c)?.py ?? PY_FALLBACK[c] ?? '';
 
-export function buildSimilar(): QuizQuestion[] {
-  const groups = sample(similarGroups, Math.min(PER_GAME, similarGroups.length));
+/** 比較卡上的一個形近字（連拼音、例詞、辨字提示）。 */
+export interface SimilarChar {
+  char: string;
+  py: string;
+  word: string;
+  hint: string;
+}
+
+/** 相似字比較的一題:整組形近字 + 一條挖空題。 */
+export interface SimilarRound {
+  id: string;
+  /** 整組形近字（比較卡,一直顯示） */
+  chars: SimilarChar[];
+  /** 正確字 */
+  answer: string;
+  /** 挖空的例詞,如「（　）經」 */
+  blanked: string;
+  /** 正解字的讀音 */
+  answerPy: string;
+  /** 選項（已洗牌的形近字） */
+  options: string[];
+}
+
+export function buildSimilarRounds(count = PER_GAME): SimilarRound[] {
+  const groups = sample(similarGroups, Math.min(count, similarGroups.length));
   return groups.map((g, i) => {
     const it = sample(g.items, 1)[0];
-    const blanked = it.word.replace(it.char, '（　）');
-    const options = [...g.chars];
     return {
       id: `sim-${i}-${it.char}`,
-      prompt: `選出正確的字填入括號：\n「${blanked}」\n（讀音 ${pyOf(it.char)}；${it.hint}）`,
-      options,
-      answerIndex: options.indexOf(it.char),
-      explanation:
-        '形近字比較 —— ' +
-        g.items
-          .map((x) => `「${x.char}」${pyOf(x.char)}，${x.word}（${x.hint}）`)
-          .join('；'),
+      chars: g.items.map((x) => ({
+        char: x.char,
+        py: pyOf(x.char),
+        word: x.word,
+        hint: x.hint,
+      })),
+      answer: it.char,
+      blanked: it.word.replace(it.char, '（　）'),
+      answerPy: pyOf(it.char),
+      options: shuffle(g.chars),
     };
   });
 }
