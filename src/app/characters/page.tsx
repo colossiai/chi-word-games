@@ -5,14 +5,17 @@ import Link from 'next/link';
 import CharacterCard from '@/components/CharacterCard';
 import ProgressBar from '@/components/ProgressBar';
 import ResultScreen from '@/components/ResultScreen';
-import { characters } from '@/data/characters';
+import StagePicker from '@/components/StagePicker';
+import { charactersByStage } from '@/data/meanings';
 import { sample } from '@/lib/shuffle';
-import type { Character } from '@/lib/types';
+import { useStage } from '@/lib/stage';
+import type { Character, Stage } from '@/lib/types';
 
 const PER_GAME = 10;
 
-export default function CharactersPage() {
-  const draw = useCallback(() => sample(characters, PER_GAME), []);
+/** 依 stage 抽卡的內層；由外層以 key={stage} 重新掛載即可換階段重抽。 */
+function Deck({ stage }: { stage: Stage }) {
+  const draw = useCallback(() => sample(charactersByStage(stage), PER_GAME), [stage]);
 
   const [deck, setDeck] = useState<Character[]>(draw);
   const [index, setIndex] = useState(0);
@@ -62,10 +65,14 @@ export default function CharactersPage() {
           ← 首頁
         </Link>
         <div className="text-right">
-          <h1 className="text-lg font-bold text-slate-800">漢字學習</h1>
+          <h1 className="text-lg font-bold text-slate-800">漢字精讀</h1>
           <p className="text-xs text-slate-500">先猜猜看，再翻卡對答案</p>
         </div>
       </header>
+
+      <div className="mb-4 flex justify-center">
+        <StagePicker />
+      </div>
 
       <div className="mb-5">
         <ProgressBar current={index} total={deck.length} />
@@ -97,4 +104,9 @@ export default function CharactersPage() {
       )}
     </main>
   );
+}
+
+export default function CharactersPage() {
+  const [stage] = useStage();
+  return <Deck key={stage} stage={stage} />;
 }

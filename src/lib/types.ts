@@ -1,5 +1,11 @@
 // 遊戲共用的資料型別定義。所有題庫 (src/data) 皆依此結構撰寫。
 
+/**
+ * 學習階段（依教育局《香港小學學習字詞表》）：
+ * 1 = 第一學習階段（小一至小三）、2 = 第二學習階段（小四至小六）。
+ */
+export type Stage = 1 | 2;
+
 /** 漢字學習卡 */
 export interface Character {
   /** 漢字（繁體） */
@@ -14,6 +20,8 @@ export interface Character {
   strokes: number;
   /** 例詞／例句（1-3 個） */
   examples: string[];
+  /** 學習階段 */
+  stage: Stage;
 }
 
 /** 單選題共用結構 */

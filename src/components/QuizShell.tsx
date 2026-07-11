@@ -14,13 +14,15 @@ interface QuizShellProps {
   subtitle?: string;
   /** useQuiz() 的回傳值（由各頁自行以 builder 建立） */
   quiz: ReturnType<typeof useQuiz>;
+  /** 進度條上方的額外內容（例如學習階段切換） */
+  topBar?: React.ReactNode;
 }
 
 /**
  * 通用單選測驗畫面，供填空、閱讀理解、修辭三種模式共用。
  * 負責題目呈現、作答回饋、解釋、進度與結算。
  */
-export default function QuizShell({ title, subtitle, quiz }: QuizShellProps) {
+export default function QuizShell({ title, subtitle, quiz, topBar }: QuizShellProps) {
   if (quiz.finished) {
     return (
       <main className="mx-auto flex min-h-screen max-w-2xl flex-col justify-center px-4 py-8">
@@ -45,6 +47,8 @@ export default function QuizShell({ title, subtitle, quiz }: QuizShellProps) {
           {subtitle && <p className="text-xs text-slate-500">{subtitle}</p>}
         </div>
       </header>
+
+      {topBar && <div className="mb-4 flex justify-center">{topBar}</div>}
 
       <div className="mb-5">
         <ProgressBar current={quiz.current} total={quiz.questions.length} />
